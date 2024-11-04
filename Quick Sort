@@ -1,0 +1,63 @@
+QUICK SORT
+#include<stdio.h>
+void swap(int *a,int *b){
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+}
+    
+void readArray(int A[], int n){
+    printf("Enter elements: ");
+    for(int i=0; i<n; i++){
+        scanf("%d", &A[i]);
+    }
+}
+
+int Partition(int A[], int lb, int ub){
+    int start=lb+1;
+    int end=ub;
+    int pivot=A[lb];
+    while(start<=end){
+        while(A[start]<=pivot){
+            start++;
+        }
+        while(A[end]>pivot){
+            end--;
+        }
+        if(start<end){
+            swap(&A[start],&A[end]);
+        }
+    }
+    swap(&A[end],&A[lb]);
+    return end;
+}
+
+void Quicksort(int A[], int lb, int ub){
+    if(ub>lb){
+        int loc=Partition(A,lb,ub);
+        Quicksort(A,lb,loc-1);
+        Quicksort(A,loc+1,ub);
+}}
+
+void printArray(int A[], int n){
+    printf("Sorted Array: ");
+    for(int i=0; i<n; i++){
+        printf("%d ", A[i]);
+    }
+    printf("\n");
+}
+
+void main() {
+    int n;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+    int A[n];
+    readArray(A, n);
+
+    int lb = 0;
+    int ub = n - 1;
+
+    Quicksort(A, lb, ub);
+    printArray(A, n);
+}
+https://www.programiz.com/online-compiler/6tHU8OnbpM5VK
