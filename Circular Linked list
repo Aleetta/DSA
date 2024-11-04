@@ -1,0 +1,205 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node{
+    int data;
+    struct Node *next;
+} node;
+
+node *head = NULL;
+
+void In_Front(int x){
+    node *new = (node *)malloc(sizeof(node));
+    new->data = x;
+    new->next = NULL;
+    if(head == NULL){
+        head = new;
+        head->next=new;
+    }
+    else {
+     node *ptr=head;
+     while(ptr->next!=head){
+     ptr=ptr->next;}
+        new->next = head;
+        head = new;
+        ptr->next=head;
+    }
+    printf("Element added.\n");
+}
+
+void In_End(int x){
+    node *new = (node *)malloc(sizeof(node));
+    new->data = x;
+    new->next = NULL;
+    if (head == NULL){
+        head = new;
+        head->next=head;
+    } else {
+        node *ptr = head;
+        while(ptr->next != head){
+            ptr = ptr->next;
+        }
+        ptr->next = new;
+        new->next=head;
+    }
+    printf("Element added.\n");
+}
+
+void In_spec(int key, int x){
+    if(head == NULL){
+        printf("List is Empty, Insertion not possible!\n");
+    } else {
+        node *ptr = head;
+        while(ptr->data != key && ptr->next != head){
+            ptr = ptr->next;
+        }
+        if(ptr->data != key){
+            printf("Key not found!\n");
+        } else {
+            node *new = (node *)malloc(sizeof(node));
+            new->data = x;
+            new->next = ptr->next;
+            ptr->next = new;
+            printf("Element added.\n");
+        }
+    }
+}
+
+void Del_Front(){
+    if (head == NULL){
+        printf("List is Empty, Deletion not possible.\n");
+    } else if(head->next==head) {
+        node *temp = head;
+        head = NULL;
+        free(temp);
+        printf("Element Deleted.\n");
+    }
+    else{
+    node *temp=head;
+    node *ptr=head;
+    while(ptr->next!=head){
+     ptr=ptr->next;}
+     head=head->next;
+     
+     ptr->next=head;
+     printf("Element Deleted.\n");
+    }
+}
+
+void Del_spec(int key){
+    if (head == NULL){
+        printf("List is Empty, Deletion not possible.\n");
+    } else if(head->next == head){
+     if(head->data==key){
+         node *temp = head;
+         head = NULL;
+         free(temp);
+         printf("Element Deleted.\n");}
+        else{
+             printf("Key not found, Deletion not possible.\n");
+        }
+    } else {
+        node *prev = head;
+        node *cur = head;
+        while (cur->data != key && cur->next != head){
+            prev = cur;
+            cur = cur->next;
+        }
+        if (cur->data != key){
+            printf("Key not found, Deletion not possible.\n");
+        } else {
+            prev->next = cur->next;
+            free(cur);
+            printf("Element Deleted.\n");
+        }
+    }
+}
+
+void Del_End(){
+    if (head == NULL){
+        printf("List is Empty, Deletion not possible.\n");
+    } else if(head->next == head){
+        node *temp = head;
+        head = NULL;
+        free(temp);
+        printf("Element Deleted.\n");
+    } else {
+        node *prev = head, *cur = head->next;
+        while (cur->next != head){
+            prev = cur;
+            cur = cur->next;
+        }
+        prev->next = head;
+        free(cur);
+        printf("Element Deleted.\n");
+    }
+}
+
+void Display(){
+    if (head == NULL){
+        printf("List is Empty\n");
+    } else {
+        node *ptr = head;
+        printf("List: ");
+
+        while(ptr->next != head){
+            printf("%d ", ptr->data);
+            ptr = ptr->next;
+        }        printf("%d ", ptr->data);
+        printf("\n");
+    }
+}
+
+void main(){
+    int c, item, x, key, n;
+    printf("1. INSERTION AT FRONT\n");
+    printf("2. INSERTION AT END\n");
+    printf("3. DELETION AT FRONT\n");
+    printf("4. DELETION AT END\n");
+    printf("5. INSERTION AFTER A SPECIFIC NODE\n");
+    printf("6. DELETION OF SPECIFIC NODE\n");
+    printf("7. DISPLAY\n");
+    do{
+        printf("Enter your choice: ");
+scanf("%d", &c);
+        switch(c){
+            case 1:
+                printf("Enter data: ");
+                scanf("%d", &x);
+                In_Front(x);
+                break;
+            case 2:
+                printf("Enter data: ");
+                scanf("%d", &x);
+                In_End(x);
+                break;
+            case 3:
+                Del_Front();
+                break;
+            case 4:
+                Del_End();
+                break;
+            case 5:printf("Enter key: ");
+                scanf("%d", &key);
+                printf("Enter data: ");
+                scanf("%d", &x);
+                In_spec(key, x);
+                break;
+            case 6:
+                printf("Enter key: ");
+                scanf("%d", &key);
+                Del_spec(key);
+                break;
+            case 7:
+                Display();
+                break;
+            default:
+                printf("Invalid choice!\n");
+                break;
+        }
+        printf("Enter 0 to continue! ");
+        scanf("%d", &n);
+        if(n != 0)
+            break;
+    } while(1);
+}
