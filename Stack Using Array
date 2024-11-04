@@ -1,4 +1,3 @@
-STACK 
 #include<stdio.h>
 void Push(int S[],int size, int *top){
     if ((*top)==size){
