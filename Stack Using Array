@@ -1,0 +1,68 @@
+STACK 
+#include<stdio.h>
+void Push(int S[],int size, int *top){
+    if ((*top)==size){
+        printf("Stack is FULL\n");}
+    else{
+        int item;
+        printf("Enter element: ");
+        scanf("%d",&item);
+        S[++(*top)]=item;
+        printf("Element Added..\n");
+}}
+void Pop(int S[], int *top) {
+    if (*top == -1) {
+        printf("Stack is Empty!");
+    } 
+    else {
+        printf("Element %d deleted \n", S[*top]);
+        (*top)--; 
+    }
+}
+void Display(int S[],int top){
+    if (top==-1){
+        printf("Stack is empty!\n");}
+    else{ 
+        printf("Stack: ");
+        for(int i=0; i<=top; i++){
+            printf("%d ",S[i]);}
+            printf("\n");
+        }
+}
+void Peek(int S[],int top){
+    if (top==-1){
+        printf("Stack is empty!\n");}
+    else{
+        printf("Top Element is %d \n", S[top]); }
+}
+void main()
+    {int c;
+    int top=-1, max;
+    printf("Enter maximum size of Stack:");
+    scanf("%d",&max);
+    max-=1;
+    int S[max];
+    printf("1. PUSH\n");
+    printf("2. POP\n");
+    printf("3. PEEK\n");
+    printf("4. DISPLAY STACK\n");
+    do {
+        printf("Enter your choice: ");
+        scanf("%d",&c);
+        switch(c){
+            case 1: Push(S, max, &top);
+                    break;
+            case 2: Pop(S, &top);
+                    break;
+            case 3: Peek(S, top);
+                    break;
+            case 4: Display(S,top);
+                    break;
+            default:printf("Invalid choice!\n");}
+        printf("Enter 0 to continue: ");
+        int n;
+        scanf("%d",&n);
+        if(n!=0)
+            break;
+        }while(1);
+}
