@@ -1,0 +1,83 @@
+STACK USING LINKED LIST
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node{
+    int data;
+    struct Node *next;
+} node;
+
+node *top = NULL;
+
+void Push(int x){
+    node *new=(node *)malloc(sizeof(node));
+    new->data=x;
+    new->next=top;
+    top=new;
+    printf("Element Added.\n");
+}
+
+void Pop(){
+    if(top==NULL){
+        printf("Stack is Empty.\n");
+    }
+    else{
+        node *temp=top;
+        printf("Deleted element is %d \n", temp->data);
+        top=top->next;
+        temp=NULL;
+        free(temp);
+    }
+}
+void Peek(){
+    if(top==NULL){
+        printf("Stack is Empty.\n");
+    }
+    else{
+        printf("Top Element: %d \n", top->data);
+    }}
+
+void Display(){
+    node *temp=top;
+    if (top == NULL){
+        printf("Stack is Empty\n");
+    } else {
+        printf("Stack: ");
+        while(temp != NULL){
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+}
+
+void main(){
+    int c, x, n;
+    printf("1. PUSH\n");
+    printf("2. POP\n");
+    printf("3. PEEK\n");
+    printf("4. DISPLAY\n");
+    do{
+        printf("Enter your choice: ");
+        scanf("%d", &c);
+        switch(c){
+            case 1: printf("Enter data: ");
+                    scanf("%d", &x);
+                    Push(x);
+                    break;
+            case 2: Pop(x);
+                    break;
+            case 3: Peek();
+                    break;
+            case 4: Display();
+                    break;
+            default:printf("Invalid choice!\n");
+                    break;
+            }
+        printf("Enter 0 to continue! ");
+        scanf("%d", &n);
+        if(n != 0)
+            break;
+    } while(1);
+}
+https://www.programiz.com/online-compiler/5I99ofEBHb5RF
