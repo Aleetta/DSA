@@ -1,0 +1,60 @@
+REVERSE STRING USING STACK
+#include <stdio.h>
+#include <string.h>
+
+void push(char Stack[], char item, int *top) {
+    (*top)++;
+    Stack[*top] = item;
+}
+
+void display(char Stack[], int *top) {
+    if (*top == -1) {
+        printf("Stack is empty!\n");
+    } 
+    else {
+        printf("Reversed String: ");
+        for (int i = 0; i <= *top; i++) {
+            printf("%c", Stack[i]);
+        }
+        printf("\n");
+    }
+}
+
+char pop(char Stack[], int *top) {
+    if (*top == -1) {
+        printf("Stack is Empty!");
+        return '\0'; 
+    } 
+    else {
+        char item = Stack[*top];  
+        (*top)--; 
+        return item;
+    }
+}
+
+void main() { 
+    char String[100];
+    printf("Enter String to reverse: ");
+    scanf("%s", String);
+    int length = strlen(String);
+    char Reverse[length + 1]; 
+    int top2 = -1;
+    int top = length-1; 
+    for (int i = 0; i < length; i++) {
+        char c = pop(String, &top);
+        push(Reverse, c, &top2);
+    }
+    display(Reverse, &top2);
+}
+
+    int x=0;
+    char c;
+    while(top!=-1){
+        c=s[top--];
+        rev[x++]=c;
+    }
+    printf("Reversed string:");
+    while(top<=x)
+        printf("%c",rev[++top]);
+}
+https://www.programiz.com/online-compiler/1EGV4AN1rk88n
