@@ -1,4 +1,3 @@
-BUBBLE SORT
 #include <stdio.h>
 void readarray(int A[],int n){
     printf("Enter Elements!\n");
