@@ -1,0 +1,81 @@
+MERGE SORT
+#include<stdio.h>
+
+void readArray(int A[], int n){
+    printf("Enter elements: ");
+    for(int i=0; i<n; i++){
+        scanf("%d", &A[i]);
+    }
+}
+
+void Merge(int A[], int lb, int mid, int ub){
+    int l = mid - lb + 1;
+    int r = ub - mid;
+    int L[l];
+    int R[r];
+
+    for(int m=0; m<l; m++){
+        L[m] = A[lb + m];
+    }
+    for(int m=0; m<r; m++){
+        R[m] = A[mid + 1 + m];
+    }
+
+    int i = 0, j = 0, k = lb;
+
+    while((i < l) && (j < r)){
+        if(L[i] < R[j]){
+            A[k] = L[i];
+            i++;
+        } else{
+            A[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(i < l){
+        A[k++] = L[i];
+        i++;
+    }
+
+    while(j < r){
+        A[k++] = R[j];
+        j++;
+    }
+}
+
+void MergeSort(int A[], int lb, int ub){
+    int mid;
+
+    if (lb < ub){
+        mid = (lb + ub) / 2;
+        MergeSort(A, lb, mid);
+        MergeSort(A, mid + 1, ub);
+        Merge(A, lb, mid, ub);
+    }
+}
+
+void printArray(int A[], int n){
+    printf("Sorted Array: ");
+    for(int i=0; i<n; i++){
+        printf("%d ", A[i]);
+    }
+    printf("\n");
+}
+
+void main() {
+    int n;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int A[n];
+    readArray(A, n);
+
+    int lb = 0;
+    int ub = n - 1;
+
+    MergeSort(A, lb, ub);
+    printArray(A, n);
+}
+https://www.programiz.com/online-compiler/2HdmY8blbLdBF
