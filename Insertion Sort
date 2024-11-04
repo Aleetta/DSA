@@ -1,4 +1,3 @@
-INSERTION SORT
 #include <stdio.h>
 void readarray(int A[],int n){
     printf("Enter Elements!\n");
@@ -34,4 +33,3 @@ void main()
     inssort(A,n);
     printarray(A,n);
 }
-https://www.programiz.com/online-compiler/8XKwXj02OQfxe
