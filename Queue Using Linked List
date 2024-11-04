@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node{
+    int data;
+    struct Node *next;
+} node;
+
+node *R = NULL;
+node *F = NULL;
+
+
+void Enqueue(int x)
+{ node *new=(node *)malloc(sizeof(node));
+     new->data=x;
+     new->next=NULL;
+     if(F==NULL && R==NULL)
+     { F=new;
+      R=new;}
+     else{
+      R->next=new;
+      R=new; }
+     printf("Element Added.\n");}
+     
+     
+void Dequeue(){
+    if(F==NULL){
+        printf("Queue is Empty.\n");
+    }
+    else if(F==R){
+     node *temp=F;
+     printf("Deleted element is %d \n", temp->data);
+     F=NULL;
+     R=NULL;
+     free(temp);}
+    else{
+        node *temp=F;
+        printf("Deleted element is %d \n", temp->data);
+        F=F->next;
+        temp=NULL;
+        free(temp);
+    }
+}
+
+void Display(){
+    if (F == NULL){
+        printf("Queue is Empty\n");
+    } else {
+     node *temp=F;
+        printf("Queue: ");
+        while(temp != NULL){
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+}
+void main(){
+    int c, x, n;
+    printf("1. ENQUEUE\n");
+    printf("2. DEQUEUE\n");
+    printf("3. DISPLAY\n");
+    do{
+        printf("Enter your choice: ");
+        scanf("%d", &c);
+        switch(c){
+            case 1: printf("Enter data: ");
+                    scanf("%d", &x);
+                    Enqueue(x);
+                    break;
+            case 2: Dequeue();
+                    break;
+            case 3: Display();
+                    break;
+            default:printf("Invalid choice!\n");
+                    break;
+            }
+        printf("Enter 0 to continue! ");
+        scanf("%d", &n);
+        if(n != 0)
+            break;
+    } while(1);
+}
