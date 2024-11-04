@@ -1,4 +1,3 @@
-MERGE SORT
 #include<stdio.h>
 
 void readArray(int A[], int n){
@@ -78,4 +77,3 @@ void main() {
     MergeSort(A, lb, ub);
     printArray(A, n);
 }
-https://www.programiz.com/online-compiler/2HdmY8blbLdBF
