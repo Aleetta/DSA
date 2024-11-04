@@ -1,0 +1,76 @@
+CIRCULAR QUEUE
+#include<stdio.h>
+#define max 2
+void Enqueue(int Q[],int *front,int *rear){
+    int item;
+    if((*rear+1)%max==*front){
+        printf("Queue is full!\n");}
+    else if(*rear==-1){
+        printf("Enter item: ");
+        scanf("%d",&item);
+        *front=0;
+        *rear=0;
+        Q[*rear]=item;
+        printf("Element Added.\n");}
+    else{
+        printf("Enter item: ");
+        scanf("%d",&item);
+        *rear=(*rear+1)%max;
+        Q[*rear]=item;}
+}
+
+void Dequeue(int Q[],int *F, int *R){
+    if(*F==-1 && *R==-1){
+        printf("Queue is Empty!\n");}
+    else if(*F==*R){
+        printf("Element %d Deleted.\n",Q[*F]);
+        *F=-1;
+        *R=-1;}
+    else{
+        printf("Element %d Deleted.\n",Q[*F]);
+        *F=(*F+1)%max;}
+ }
+ 
+void Display(int Q[],int *F,int *R){
+    if(*F==-1 && *R==-1){
+        printf("Queue is Empty.\n");}
+    else{
+        int i = *F;
+        printf("Queue: ");
+        while(i!=*R){
+            printf("%d ",Q[i]);
+            i=(i+1)%max;
+        }
+        printf("%d\n",Q[*R]);
+    }}
+void main(){
+    int c,item;
+    printf("1. ENQUEUE\n");
+    printf("2. DEQUEUE\n");
+    printf("3. DISPLAY QUEUE\n");
+    int Q[max];
+    int F=-1;
+    int R=-1;
+    do{
+        printf("Enter your choice:");
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1: Enqueue(Q,&F,&R);
+                    break;
+            case 2: Dequeue(Q,&F,&R);
+                    break;
+            case 3: Display(Q,&F,&R);
+                    break;
+            default: printf("Invalid choice!\n");
+                    break;
+        }
+        printf("Enter 0 to continuu!");
+        int n;
+        scanf("%d",&n);
+        if(n!=0)
+            break;
+   
+    }while(1);
+}
+https://www.programiz.com/online-compiler/6gf2EcLsBuDpp
