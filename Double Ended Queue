@@ -1,0 +1,136 @@
+DOUBLE ENDED QUEUE
+#include<stdio.h>
+#define max 3
+int F=-1;
+int R=-1;
+int DQ[max];
+
+void PUSH_DQ(int item){
+    if((F==0 && R==max-1) || (F==R+1)){
+        printf("Deque is full!\n");
+    } else if(F==-1 && R==-1){
+        F=0;
+        R=0;
+        DQ[F]=item;
+        printf("Element Added.\n");
+    } else if(F>0){
+        F--;
+        DQ[F]=item;
+        printf("Element Added.\n");
+    } else {
+        for(int i=R; i>=F; i--){
+            DQ[i+1] = DQ[i];
+        }
+        DQ[F] = item;
+        R++;
+        printf("Element Added.\n");
+    }
+}
+
+void POP_DQ(){
+    if(F==-1 && R==-1){
+        printf("Deque is Empty!\n");
+    } else if(F==R){
+        printf("Element %d Deleted.\n",DQ[F]);
+        F=-1;
+        R=-1;
+    } else {
+        printf("Element %d Deleted.\n",DQ[F]);
+        F=F+1;
+    }
+}
+
+void INJECT_DQ(int item){
+    if((F==0 && R==max-1) || (F==R+1)){
+        printf("Deque is full!\n");
+    } else if(F==-1 && R==-1){
+        F=0;
+        R=0;
+        DQ[R]=item;
+        printf("Element Added.\n");
+    } else if(R<max-1){
+        R++;
+        DQ[R]=item;
+        printf("Element Added.\n");
+    } else {
+        for(int i=F; i<=R; i++){
+            DQ[i-1] = DQ[i];
+        }
+        DQ[R] = item;
+        F--;
+        printf("Element Added.\n");
+    }
+}
+
+void REJECT_DQ(){
+    if(F==-1 && R==-1){
+        printf("Deque is Empty!\n");
+    } else if(F==R){
+        printf("Element %d Deleted.\n",DQ[F]);
+        F=-1;
+        R=-1;
+    } else {
+        printf("Element %d Deleted.\n",DQ[R]);
+        R=R-1;
+    }
+}
+
+void DisplayDQ(){
+    if(F==-1 && R==-1){
+        printf("Queue is Empty.\n");
+    } else {
+        int i = F;
+        printf("Queue: ");
+        while(i <= R){
+            printf("%d ", DQ[i]);
+            i++;
+        }
+        printf("\n");
+    }
+}
+
+void main(){
+    int c;
+    printf("1. INSERTION FROM FRONT (PUSH_DQ)\n");
+    printf("2. DELETION FROM FRONT (POP_DQ)\n");
+    printf("3. INSERTION FROM REAR (INJECT_DQ)\n");
+    printf("4. DELETION FROM REAR (REJECT_DQ)\n");
+    printf("5. DISPLAY DEQUE\n");
+    
+    do{
+        printf("Enter your choice:");
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1: {
+                int item;
+                printf("Enter item: ");
+                scanf("%d",&item);
+                PUSH_DQ(item);
+                break;
+            }
+            case 2: POP_DQ();
+                    break;
+            case 3: {
+                int item;
+                printf("Enter item: ");
+                scanf("%d",&item);
+                INJECT_DQ(item);
+                break;
+            }
+            case 4: REJECT_DQ();
+                    break;
+            case 5: DisplayDQ();
+                    break;
+            default: printf("Invalid choice!\n");
+                    break;
+        }
+        printf("Enter 0 to continue: ");
+        int n;
+        scanf("%d",&n);
+        if(n!=0)
+            break;
+    }while(1);
+}
+
+https://www.programiz.com/online-compiler/02EEX8NF3fbLI
