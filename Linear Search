@@ -1,0 +1,26 @@
+LINEAR SEARCH
+#include <stdio.h>
+void main()
+{   int n;
+    printf("Enter no. of elements!");
+    scanf("%d",&n);
+    int a[n],i,flag=0,el;
+    printf("Enter Elements!\n");
+    for(i=0;i<n;i++){
+        scanf("%d",&a[i]);}
+    printf("Enter element to search!");
+    scanf("%d",&el);
+    for(i=0;i<n;i++){
+        if(a[i]==el){
+            flag=i;
+            break;
+        }
+    }
+    if (flag==0){
+        printf("Element not Found!");
+    }
+    else{
+        printf("Element %d found at index %d",el,flag);
+    }
+}
+https://www.programiz.com/online-compiler/14XNzXcvCw9CO
