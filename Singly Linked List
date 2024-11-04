@@ -125,5 +125,56 @@ void Display(){
             ptr = ptr->next;
         }
         printf("\n");
-    }
-}
+    }}
+void main(){
+    int c, item, x, key, n;
+    printf("1. INSERTION AT FRONT\n");
+    printf("2. INSERTION AT END\n");
+    printf("3. DELETION AT FRONT\n");
+    printf("4. DELETION AT END\n");
+    printf("5. INSERTION AFTER A SPECIFIC NODE\n");
+    printf("6. DELETION OF SPECIFIC NODE\n");
+    printf("7. DISPLAY\n");
+    do{
+        printf("Enter your choice: ");
+        scanf("%d", &c);
+        switch(c){
+            case 1:
+                printf("Enter data: ");
+                scanf("%d", &x);
+                In_Front(x);
+                break;
+            case 2:
+                printf("Enter data: ");
+                scanf("%d", &x);
+                In_End(x);
+                break;
+            case 3:
+                Del_Front();
+                break;
+            case 4:
+                Del_End();
+                break;
+            case 5:printf("Enter key: ");
+                scanf("%d", &key);
+                printf("Enter data: ");
+                scanf("%d", &x);
+                In_spec(key, x);
+                break;
+            case 6:
+                printf("Enter key: ");
+                scanf("%d", &key);
+                Del_spec(key);
+                break;
+            case 7:
+                Display();
+                break;
+            default:
+                printf("Invalid choice!\n");
+                break;
+        }
+        printf("Enter 0 to continue! ");
+        scanf("%d", &n);
+        if(n != 0)
+            break;
+    } while(1);
