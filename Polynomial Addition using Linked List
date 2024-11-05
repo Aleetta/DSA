@@ -1,0 +1,122 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
+    int coef, exp;
+    struct Node *next;
+} node;
+
+node *phead = NULL;
+node *qhead = NULL;
+node *rhead = NULL;
+
+void add(node *phead, node *qhead) {
+    node *p = phead;
+    node *q = qhead;
+    node *r = NULL;
+
+    while (p != NULL && q != NULL) {
+        node *new_node = (node *)malloc(sizeof(node));
+        if (p->exp == q->exp) {
+            new_node->coef = p->coef + q->coef;
+            new_node->exp = p->exp;
+            p = p->next;
+            q = q->next;
+        } else if (p->exp > q->exp) {
+            new_node->coef = p->coef;
+            new_node->exp = p->exp;
+            p = p->next;
+        } else {
+            new_node->coef = q->coef;
+            new_node->exp = q->exp;
+            q = q->next;
+        }
+        new_node->next = NULL;
+
+        if (rhead == NULL) {
+            rhead = new_node;
+            r = new_node;
+        } else {
+            r->next = new_node;
+            r = new_node;
+        }
+    }
+
+    while (p != NULL) {
+        node *new_node = (node *)malloc(sizeof(node));
+        new_node->coef = p->coef;
+        new_node->exp = p->exp;
+        new_node->next = NULL;
+        p = p->next;
+
+        if (rhead == NULL) {
+            rhead = new_node;
+            r = new_node;
+        } else {
+            r->next = new_node;
+            r = new_node;
+        }
+    }
+
+    while (q != NULL) {
+        node *new_node = (node *)malloc(sizeof(node));
+        new_node->coef = q->coef;
+        new_node->exp = q->exp;
+        new_node->next = NULL;
+        q = q->next;
+
+        if (rhead == NULL) {
+            rhead = new_node;
+            r = new_node;
+        } else {
+            r->next = new_node;
+            r = new_node;
+        }
+    }
+}
+void display(node *head){
+    if (rhead == NULL) {
+        printf("Polynomial is Empty\n");
+    } else {
+        node *ptr = rhead;
+        while (ptr != NULL) {
+            printf("%dx^%d", ptr->coef, ptr->exp);
+            ptr = ptr->next;
+            if (ptr != NULL) {
+                printf(" + ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+void main() {
+    int n, m;
+    printf("Polynomial addition\n");
+    printf("Enter number of terms of first polynomial: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        node *new_node = (node *)malloc(sizeof(node));
+        printf("Enter coefficient of term %d: ", (i + 1));
+        scanf("%d", &new_node->coef);
+        printf("Enter exponent of term %d: ", (i + 1));
+        scanf("%d", &new_node->exp);
+        new_node->next = phead;
+        phead = new_node;
+    }
+
+    printf("Enter number of terms of second polynomial: ");
+    scanf("%d", &m);
+    for (int i = 0; i < m; i++) {
+        node *new_node = (node *)malloc(sizeof(node));
+        printf("Enter coefficient of term %d: ", (i + 1));
+        scanf("%d", &new_node->coef);
+        printf("Enter exponent of term %d: ", (i + 1));
+        scanf("%d", &new_node->exp);
+        new_node->next = qhead;
+        qhead = new_node;
+    }
+
+    add(phead, qhead);
+    display(rhead);
+}
