@@ -2,19 +2,16 @@
 #include <string.h>
 #include <ctype.h>
 
-int precedence(char x) { //check precedence of operator..
+int precedence(char x) { // Check precedence of operator
     switch (x) {
         case '+':
-        case '-':{
+        case '-':
             return 1;
-            break;}
         case '*':
         case '/':
-            {return 2;
-            break;}
+            return 2;
         case '^':
-            {return 3;
-            break;}
+            return 3;
         default:
             return 0;
     }
@@ -27,38 +24,36 @@ int main() {
     int l = strlen(A);
     char P[l + 1];
     A[l] = '#';
-    char S[10];
+    char S[l];
     int top = -1, p = 0, a = 0;
 
     while (A[a] != '#') {
         char c = A[a];
-        if (isdigit(c) || c>='a' && c<='z' || c>='A' && c<='Z') {
-            P[p++] = c; // If c is a digit, add it to the postfix expression
+        if (isdigit(c) || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+            P[p++] = c; // If c is a digit or letter, add it to the postfix expression
         } else if (c == '(') {
             S[++top] = c; // Add left parenthesis to the stack
         } else if (c == ')') {
-            while (S[top] != '(') {
+            while (top != -1 && S[top] != '(') {
                 P[p++] = S[top--]; // Pop operators from stack to postfix until '('
             }
             top--; // Remove the '(' from the stack
         } else {
-            char x = c;
-            char y = S[top];
-            if (top == -1 || y == '(' || precedence(x) > precedence(y)) {
-                S[++top] = c; // Push operator onto the stack
-            } else {
-                while (top != -1 && y != '(' && precedence(x) <= precedence(y)) {
-                    P[p++] = S[top--]; // Pop higher-precedence operators
-                }
-                S[++top] = x; // Push current operator onto the stack
+            // While stack is not empty, and precedence of current operator is less than or equal to top of stack
+            while (top != -1 && S[top] != '(' && precedence(c) <= precedence(S[top])) {
+                P[p++] = S[top--]; // Pop higher-precedence operators
             }
+            S[++top] = c; // Push current operator onto the stack
         }
         a++;
     }
-    while(top>=0){
-        P[p++]=S[top--];
+
+    // Pop all remaining operators from the stack
+    while (top >= 0) {
+        P[p++] = S[top--];
     }
-    P[p]='\0';
-    printf("Postfix Expression: %s \n", P);
+
+    P[p] = '\0';
+    printf("Postfix Expression: %s\n", P);
     return 0;
 }
